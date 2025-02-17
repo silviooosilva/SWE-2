@@ -1,4 +1,10 @@
-<?php require_once __DIR__ . "/vendor/autoload.php";  ?>
+<?php
+use Silviooosilva\Clarifiquei\Models\User;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+User::create();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -29,7 +35,7 @@
   </header>
 
     <div class="conteudo-central container d-flex justify-content-center m-auto p-0 h-75 col-12">
-      <form>
+      <form id="loginForm" action="#" method="POST" enctype="multipart/form-data">
         <div class="formulario-conteudo container-fluid col-12">
             <h1 class="__titulo">Seja bem-vindo!</h1>
             <span class="__subtitulo">Seja bem-vindo! Por favor preencha os campos.</span>
@@ -40,7 +46,7 @@
             </div>
             <div class="form-group mt-3">
               <label for="palavra-passe">Palavra-passe</label>
-              <input type="password" name="palavra-passe" class="form-control" id="palavra-passe" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+              <input type="password" name="password" class="form-control" id="palavra-passe" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
             </div>
         </div>
 
@@ -50,6 +56,9 @@
       </form>
 
     </div>
-
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./public/assets/script/Index.js"></script>
 </body>
 </html>
