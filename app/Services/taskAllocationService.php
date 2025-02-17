@@ -55,21 +55,33 @@ class TaskAllocationService
         $bestEngineer = null;
         $minLoad = PHP_INT_MAX;
 
+        $bestEngineerFallback = null;
+        $minOverload = PHP_INT_MAX;
+
         foreach($engineers as $engineer){
 
           $assignedTasks = $this->taskRepository->findByEngineer($engineer['id']);
           $currentLoad = $this->calculateCurrentLoad($engineer, $assignedTasks);
           $taskEffectiveTime = $this->effectiveTime($task['time'], $engineer['efficiency']);
 
-          if(($currentLoad + $taskEffectiveTime) <= $engineer['max_workload'] && $currentLoad < $minLoad) 
-          {
+          if(($currentLoad + $taskEffectiveTime) <= $engineer['max_workload'] && $currentLoad < $minLoad) {
             $bestEngineer = $engineer;
             $minLoad = $currentLoad;
+          } else {
+           
+            $overload = ($currentLoad + $taskEffectiveTime) - $engineer['max_workload'];
+            if($overload < $minOverload) {
+                $minOverload = $overload;
+                $bestEngineerFallback = $engineer;
+            }
           }
         }
 
         if($bestEngineer) {
           $this->taskRepository->assingTask($task['id'], $bestEngineer['id']);
+        } elseif($bestEngineerFallback) {
+         
+          $this->taskRepository->assingTask($task['id'], $bestEngineerFallback['id']);
         }
     }
 
@@ -91,7 +103,7 @@ class TaskAllocationService
       }
     }
 
-    return true;  
+    return true;
 
   }
 

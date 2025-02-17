@@ -83,7 +83,7 @@ if(Phession::has('user')) {
 
 $tasks = $Task->getAllocations();
 if(!$tasks) {
-    echo '<tr><td colspan="4">Nenhuma tarefa encontrada</td></tr>';
+    echo '<tr><td colspan="4" class="text-center">Nenhuma tarefa encontrada</td></tr>';
 }
 foreach($tasks as $task):
 ?>
