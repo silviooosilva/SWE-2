@@ -28,12 +28,7 @@ $Task = new Task();
         <h1>SWE 2</h1>
 
       <ul class="navbar-nav">
-        <li class="__caminho nav-item rounded _ativado"><a href="./index.php" class="nav-link">Visão Geral</a></li>
-        <!--
-        <li class="__caminho nav-item rounded"><a href="./tarefas.php" class="nav-link">Tarefas</a></li>
-        <li class="__caminho nav-item rounded"><a href="./actividades.php" class="nav-link">Actividades</a></li>
-
--->
+        <li class="__caminho nav-item rounded _ativado"><a href="./home.php" class="nav-link">Visão Geral</a></li>
         </li>
       </ul>
     <li class="nav-item rounded" style="list-style: none;">Sair</li>
@@ -102,12 +97,33 @@ foreach($tasks as $task):
 
 
 <div class="form-section mt-5">
-            <h2>Relatório de Alocação</h2>
-            <p>Gráfico de Progresso (a ser implementado)</p>
-            <table class="table">
-                <thead></thead>
+    <h2>Relatório de Alocação</h2>
+    <?php
+        $engineers = $Engineer->index();
+        $labels = [];
+        $progressList = [];
+        if($engineers) {
+            foreach($engineers as $engineer):
+                $tasks = $Task->findByEngineer($engineer['id']);
+                $totalHours = 0;
+                $workedHours = 0;
+                foreach($tasks as $task) {
+                    $totalHours += $task['time'];
+                    if($task['status'] === 'Concluída' || $task['status'] === 'Encerrada') {
+                        $workedHours += $task['time'];
+                    }
+                }
+                $progress = ($totalHours > 0) ? ($workedHours / $totalHours) * 100 : 0;
+                $labels[] = $engineer['name'];
+                $progressList[] = $progress;
+            endforeach;
+        }
+    ?>
+    <canvas id="progressChart"></canvas>
+</div>
 
-            </table>
+    </div>
+
 </div>
 
 <!-- Modal -->
@@ -190,8 +206,31 @@ foreach($tasks as $task):
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./public/assets/script/Engineer.js"></script>
 <script src="./public/assets/script/Task.js"></script>
-</body>
+<script>
+  const ctx = document.getElementById('progressChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: <?= json_encode($labels, JSON_UNESCAPED_UNICODE) ?>,
+      datasets: [{
+        label: 'Progresso (%)',
+        data: <?= json_encode($progressList) ?>,
+        backgroundColor: 'rgba(13, 110, 253, 0.5)'  // updated to match the project's base color
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true, max: 100 }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+</script>
 </body>
 </html>

@@ -20,6 +20,9 @@ $(document).ready(function () {
             icon: 'success',
             confirmButtonText: 'OK'
           });
+           setTimeout(function () {
+            location.reload();
+          }, 1200);
         } else {
           Swal.fire({
             title: 'Erro!',
@@ -27,6 +30,9 @@ $(document).ready(function () {
             icon: 'error',
             confirmButtonText: 'OK'
           });
+           setTimeout(function () {
+            location.reload();
+          }, 1200);
         }
       }
     });

@@ -45,6 +45,11 @@ class Task
     return $this->taskRepository->find($id);
   }
 
+  public function findByEngineer(int $engineer_id)
+  {
+    return $this->taskRepository->findByEngineer($engineer_id);
+  }
+
   /**
   * @return array
   */
