@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2? family=Josefin+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+html {
+  height: 100%;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.btn, .btn:focus, .btn:active, .form-control, .form-control:focus, .form-control:active, .form-check-input, .form-check-input:focus, .form-check-input:active {
+  box-shadow: none;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat";
+  color: #050036;
+}
+
+body {
+  height: 100%;
+}
+.cabecalho {
+  margin-bottom: 150px;
+}
+.cabecalho._fixo {
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+.cabecalho .navbar-nav {
+  gap: 1.5rem;
+  align-items: center;
+}
+.cabecalho .navbar-nav .nav-item {
+  font-size: 0.95rem;
+}
+.cabecalho .navbar-nav .nav-item * {
+  padding: 0;
+  color: #050036;
+}
+.conteudo-central {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* HOME */
+
+.btn__cadastro {
+  background-color: #AF80D1 !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: 0.3s !important;
+}
+
+.btn__tarefa, .btn__submit {
+  background-color: transparent !important;
+  color: #AF80D1 !important;
+  border-color: #AF80D1 !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+.btn__submit:hover {
+  background-color: #AF80D1 !important;
+  color: white !important;
+}
