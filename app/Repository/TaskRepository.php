@@ -71,7 +71,7 @@ class TaskRepository extends Connect
   public function getAllocations()
   {
 
-$stmt = $this->connect->query("SELECT engineers.name as engineer_name, tasks.name as task_name, tasks.status, tasks.id FROM tasks JOIN engineers ON tasks.engineer_id = engineers.id");
+$stmt = $this->connect->query("SELECT engineers.name as engineer_name, tasks.name as task_name, tasks.status, tasks.id FROM tasks JOIN engineers ON tasks.engineer_id = engineers.id ORDER BY id DESC");
     $allocations = [];
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $allocations[] = $row;
