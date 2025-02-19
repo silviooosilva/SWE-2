@@ -95,12 +95,12 @@ foreach($tasks as $task):
                         <td>
 
                         <?php if($task['status'] === 'Pendente'): ?>
-                            <button class="btn btn-primary" id="startTask" type="submit" value="<?= $task['id']; ?>">Iniciar tarefa</button>
+                            <button class="btn btn-primary startTask" type="submit" value="<?= $task['id']; ?>">Iniciar tarefa</button>
 
                         <?php elseif($task['status'] === 'Em andamento'): ?>
-                            <button class="btn btn-success" id="finishTask" type="submit" value="<?= $task['id']; ?>">Concluir tarefa</button>
+                            <button class="btn btn-success finishTask" type="submit" value="<?= $task['id']; ?>">Concluir tarefa</button>
 
-                            <button class="btn btn-outline-danger" id="closeTask" type="submit" value="<?= $task['id']; ?>">Encerrar tarefa</button>
+                            <button class="btn btn-outline-danger closeTask" type="submit" value="<?= $task['id']; ?>">Encerrar tarefa</button>
                         <?php endif; ?>
 
                         </td>

@@ -8,7 +8,6 @@ $(document).ready(function () {
       data: data,
       success: function (response) {
         let responseJSON = JSON.parse(response);
-        console.log(responseJSON);
         if (responseJSON.status === 'success') {
           $('#formTask')[0].reset();
           $('#exampleModalTarefa').modal('hide');
@@ -29,109 +28,67 @@ $(document).ready(function () {
       }
     });
   });
-  
-  
-  
-  $('#startTask').on('click', function () {
-    let id = $('#startTask').val();
+
+  $(document).on('click', '.startTask', function () {
+    let id = $(this).val();
     $.ajax({
       url: baseURL + '/app/Controllers/taskController.php?action=startTask',
       type: 'POST',
       data: { id: id },
       success: function (response) {
         let responseJSON = JSON.parse(response);
-        if (responseJSON.status === 'success') {
-          Swal.fire({
-            title: 'Sucesso!',
-            text: responseJSON.message,
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-          setTimeout(function () {
-            location.reload();
-          }, 1200);
-        } else {          
-          Swal.fire({
-            title: 'Erro!',
-            text: responseJSON.message,
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-          setTimeout(function () {
-            location.reload();
-          }, 1200);
-        }
-        
+        Swal.fire({
+          title: responseJSON.status === 'success' ? 'Sucesso!' : 'Erro!',
+          text: responseJSON.message,
+          icon: responseJSON.status,
+          confirmButtonText: 'OK'
+        });
+        setTimeout(function () {
+          location.reload();
+        }, 1200);
       }
     });
   });
-  
-    $('#finishTask').on('click', function () {
-    let id = $('#finishTask').val();
+
+  $(document).on('click', '.finishTask', function () {
+    let id = $(this).val();
     $.ajax({
       url: baseURL + '/app/Controllers/taskController.php?action=finishTask',
       type: 'POST',
       data: { id: id },
       success: function (response) {
         let responseJSON = JSON.parse(response);
-        if (responseJSON.status === 'success') {
-          Swal.fire({
-            title: 'Sucesso!',
-            text: responseJSON.message,
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-          setTimeout(function () {
-            location.reload();
-          }, 1200);
-        } else {          
-          Swal.fire({
-            title: 'Erro!',
-            text: responseJSON.message,
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-          setTimeout(function () {
-            location.reload();
-          }, 1200);
-        }
-        
+        Swal.fire({
+          title: responseJSON.status === 'success' ? 'Sucesso!' : 'Erro!',
+          text: responseJSON.message,
+          icon: responseJSON.status,
+          confirmButtonText: 'OK'
+        });
+        setTimeout(function () {
+          location.reload();
+        }, 1200);
       }
     });
   });
-  
-      $('#closeTask').on('click', function () {
-    let id = $('#closeTask').val();
+
+  $(document).on('click', '.closeTask', function () {
+    let id = $(this).val();
     $.ajax({
       url: baseURL + '/app/Controllers/taskController.php?action=closeTask',
       type: 'POST',
       data: { id: id },
       success: function (response) {
         let responseJSON = JSON.parse(response);
-        if (responseJSON.status === 'success') {
-          Swal.fire({
-            title: 'Sucesso!',
-            text: responseJSON.message,
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-          setTimeout(function () {
-            location.reload();
-          }, 1200);
-        } else {          
-          Swal.fire({
-            title: 'Erro!',
-            text: responseJSON.message,
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-          setTimeout(function () {
-            location.reload();
-          }, 1200);
-        }
-        
+        Swal.fire({
+          title: responseJSON.status === 'success' ? 'Sucesso!' : 'Erro!',
+          text: responseJSON.message,
+          icon: responseJSON.status,
+          confirmButtonText: 'OK'
+        });
+        setTimeout(function () {
+          location.reload();
+        }, 1200);
       }
     });
   });
-  
 });
