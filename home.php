@@ -118,20 +118,26 @@ foreach($tasks as $task):
         $engineers = $Engineer->index();
         $labels = [];
         $progressList = [];
+        $estimatedTimes = []; // novo array para tempo estimado
         if($engineers) {
             foreach($engineers as $engineer):
                 $tasks = $Task->findByEngineer($engineer['id']);
                 $totalHours = 0;
                 $workedHours = 0;
+                $estimated = 0;
                 foreach($tasks as $task) {
                     $totalHours += $task['time'];
                     if($task['status'] === 'Concluída' || $task['status'] === 'Encerrada') {
                         $workedHours += $task['time'];
+                    } else {
+                        // Calcula tempo estimado considerando a eficiência
+                        $estimated += $task['time'] * ((100 - $engineer['efficiency']) / 100);
                     }
                 }
                 $progress = ($totalHours > 0) ? ($workedHours / $totalHours) * 100 : 0;
                 $labels[] = $engineer['name'];
                 $progressList[] = $progress;
+                $estimatedTimes[] = round($estimated, 2);
             endforeach;
         }
     ?>
@@ -231,20 +237,25 @@ foreach($tasks as $task):
     type: 'bar',
     data: {
       labels: <?= json_encode($labels, JSON_UNESCAPED_UNICODE) ?>,
-      datasets: [{
-        label: 'Progresso (%)',
-        data: <?= json_encode($progressList) ?>,
-        backgroundColor: 'rgba(13, 110, 253, 0.5)'
-      }]
+      datasets: [
+        {
+          label: 'Progresso (%)',
+          data: <?= json_encode($progressList) ?>,
+          backgroundColor: 'rgba(13, 110, 253, 0.5)'
+        },
+        {
+          label: 'Tempo Estimado (h)',
+          data: <?= json_encode($estimatedTimes) ?>,
+          backgroundColor: 'rgba(255, 159, 64, 0.5)'
+        }
+      ]
     },
     options: {
       responsive: true,
       scales: {
         y: { beginAtZero: true, max: 100 }
       },
-      plugins: {
-        legend: { display: false }
-      }
+      plugins: { legend: { display: true } }
     }
   });
 </script>
